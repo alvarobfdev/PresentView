@@ -568,17 +568,17 @@ abstract class Controller extends BaseController {
 
 	function detailviewsave( $model ,$request , $detail , $id )
 	{
-		
-		\DB::table($detail['table'])->where($detail['key'],$request[$detail['key']])->delete();
+
+		\DB::table($detail['table'])->where($detail['key'],$request[$detail['master_key']])->delete();
 		$info = $model->makeInfo( $detail['module'] );
 		$str = $info['config']['forms'];
-		$data = array($detail['master_key'] => $id );
+		$data = array($detail['key'] => $id );
 		$total = count($request['counter']);
 		for($i=0; $i<$total;$i++)
 		{
 			foreach($str as $f){
 				$field = $f['field'];
-				if($f['view'] ==1) 
+				if($f['view'] ==1)
 				{
 					//echo 'bulk_'.$field[$i]; echo '<br />';
 					if(isset($request['bulk_'.$field][$i]))
@@ -586,13 +586,10 @@ abstract class Controller extends BaseController {
 						$data[$f['field']] = $request['bulk_'.$field][$i];
 					}
 				}
-				
-			}	
 
+			}
 			\DB::table($detail['table'])->insert($data);
-		}	
-
-		
+		}
 	}
 
 }
