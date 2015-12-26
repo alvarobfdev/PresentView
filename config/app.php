@@ -1,6 +1,6 @@
 <?php
 
-include "../vendor/vendor-includes.php";
+require __DIR__."/../vendor/vendor-includes.php";
 
 return [
 
