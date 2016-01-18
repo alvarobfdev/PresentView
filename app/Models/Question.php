@@ -26,6 +26,10 @@ class question extends Sximo  {
 	public static function queryGroup(){
 		return "  ";
 	}
+
+	public function answers() {
+		return $this->hasMany("App\Models\possibleanswers");
+	}
 	
 
 }

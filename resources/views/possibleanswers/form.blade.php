@@ -41,15 +41,6 @@
 									 </div>
 								  </div> 					
 								  <div class="form-group  " >
-									<label for="Question Id" class=" control-label col-md-4 text-left"> Question Id </label>
-									<div class="col-md-6">
-									  <select name='question_id' rows='5' id='question_id' class='select2 '   ></select> 
-									 </div> 
-									 <div class="col-md-2">
-									 	
-									 </div>
-								  </div> 					
-								  <div class="form-group  " >
 									<label for="Title" class=" control-label col-md-4 text-left"> Title </label>
 									<div class="col-md-6">
 									  {!! Form::text('title', $row['title'],array('class'=>'form-control', 'placeholder'=>'',   )) !!} 
@@ -98,9 +89,6 @@
    <script type="text/javascript">
 	$(document).ready(function() { 
 		
-		
-		$("#question_id").jCombo("{{ URL::to('possibleanswers/comboselect?filter=app_questions:id:id') }}",
-		{  selected_value : '{{ $row["question_id"] }}' });
 		 
 
 		$('.removeCurrentFiles').on('click',function(){

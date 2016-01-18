@@ -31,7 +31,7 @@
 <div class="col-md-12">
 						<fieldset><legend> Question</legend>
 									
-								  <div class="form-group  " >
+								  <div class="form-group hidethis " style="display:none;">
 									<label for="Id" class=" control-label col-md-4 text-left"> Id </label>
 									<div class="col-md-6">
 									  {!! Form::text('id', $row['id'],array('class'=>'form-control', 'placeholder'=>'',   )) !!} 

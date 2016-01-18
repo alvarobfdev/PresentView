@@ -1,7 +1,9 @@
 <?php namespace App\Http\Controllers;
 
+use App\Events\RevisionHasChanged;
 use App\Http\Controllers\controller;
 use App\Models\Question;
+use App\Models\Revision;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator as Paginator;
 use Validator, Input, Redirect ; 
@@ -145,6 +147,7 @@ class QuestionController extends Controller {
 			$data = $this->validatePost('tb_question');
 				
 			$id = $this->model->insertRow($data , $request->input('id'));
+
 			$this->detailviewsave( $this->modelview , $request->all() , $this->data['subgrid'] , $id) ;
 			if(!is_null($request->input('apply')))
 			{
@@ -161,7 +164,9 @@ class QuestionController extends Controller {
 				\SiteHelpers::auditTrail($request ,'Data with ID '.$id.' Has been Updated !');
 			}
 
+			\Event::fire(new RevisionHasChanged(new Revision()));
 			return Redirect::to($return)->with('messagetext',\Lang::get('core.note_success'))->with('msgstatus','success');
+
 			
 		} else {
 
@@ -183,10 +188,13 @@ class QuestionController extends Controller {
 			$this->model->destroy($request->input('ids'));
 			\DB::table('app_possible_answers')->whereIn('question_id',$request->input('ids'))->delete();
 			\SiteHelpers::auditTrail( $request , "ID : ".implode(",",$request->input('ids'))."  , Has Been Removed Successfull");
+			\Event::fire(new RevisionHasChanged(new Revision()));
+
 			// redirect
 			return Redirect::to('question')
-        		->with('messagetext', \Lang::get('core.note_success_delete'))->with('msgstatus','success'); 
-	
+        		->with('messagetext', \Lang::get('core.note_success_delete'))->with('msgstatus','success');
+
+
 		} else {
 			return Redirect::to('question')
         		->with('messagetext','No Item Deleted')->with('msgstatus','error');				

@@ -1,7 +1,9 @@
 <?php namespace App\Http\Controllers;
 
+use App\Events\RevisionHasChanged;
 use App\Http\Controllers\controller;
 use App\Models\Possibleanswers;
+use App\Models\Revision;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator as Paginator;
 use Validator, Input, Redirect ; 
@@ -160,6 +162,7 @@ class PossibleanswersController extends Controller {
 			} else {
 				\SiteHelpers::auditTrail($request ,'Data with ID '.$id.' Has been Updated !');
 			}
+			\Event::fire(new RevisionHasChanged(new Revision()));
 
 			return Redirect::to($return)->with('messagetext',\Lang::get('core.note_success'))->with('msgstatus','success');
 			
@@ -183,6 +186,7 @@ class PossibleanswersController extends Controller {
 			$this->model->destroy($request->input('ids'));
 			
 			\SiteHelpers::auditTrail( $request , "ID : ".implode(",",$request->input('ids'))."  , Has Been Removed Successfull");
+			\Event::fire(new RevisionHasChanged(new Revision()));
 			// redirect
 			return Redirect::to('possibleanswers')
         		->with('messagetext', \Lang::get('core.note_success_delete'))->with('msgstatus','success'); 
