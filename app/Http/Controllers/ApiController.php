@@ -9,6 +9,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Models\Answers;
 use App\Models\question;
 use App\Models\Revision;
 use Carbon\Carbon;
@@ -25,11 +26,16 @@ class ApiController extends Controller
     }
 
     public function getQuestions(){
-        $questions = question::with('answers')->where("time_ini", ">",Carbon::now()->toDateTimeString())->get();
+
+        $questions = question::with('answers')->where("time_end", "<",Carbon::now()->toDateTimeString())->get();
         return $questions;
     }
 
     public function getRevision() {
         return Revision::find(1);
+    }
+
+    public function getAnswers() {
+        return Answers::with("question")->get();
     }
 }

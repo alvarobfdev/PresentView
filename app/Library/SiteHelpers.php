@@ -826,7 +826,7 @@ public static function alphaID($in, $to_num = false, $pad_up = false, $passKey =
 		{
 			if($f['field'] == $field && $f['search'] ==1)
 			{
-				$type = ($f['type'] !='file' ? $f['type'] : ''); 
+				$type = ($f['type'] !='file' ? $f['type'] : '');
 				$option = $f['option'];
 				$required = $f['required'];
 				
@@ -844,7 +844,7 @@ public static function alphaID($in, $to_num = false, $pad_up = false, $passKey =
 			}	
 		}
 		$field = 'bulk_'.$field;
-		
+
 		switch($type)
 		{
 			default;
@@ -913,7 +913,7 @@ public static function alphaID($in, $to_num = false, $pad_up = false, $passKey =
 					$opts .= "<option value ='".$row[0]."' > ".$row[1]." </option> ";
 				}
 				$form = "<select name='$field{$bulk}' class='form-control' $mandatory ><option value=''> -- Select  -- </option>$opts</select>";
-				break;												
+				break;
 			
 		}
 		
