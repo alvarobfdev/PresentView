@@ -27,7 +27,7 @@ class ApiController extends Controller
 
     public function getQuestions(){
 
-        $questions = question::with('answers')->where("time_end", "<",Carbon::now()->toDateTimeString())->get();
+        $questions = question::with('answers')->where("time_end", ">",Carbon::now()->toDateTimeString())->get();
         return $questions;
     }
 
