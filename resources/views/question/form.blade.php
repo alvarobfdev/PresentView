@@ -105,7 +105,7 @@
         @if(count($subgrid['rowData'])>=1)
             @foreach ($subgrid['rowData'] as $rows)
             <tr class="clone clonedInput">
-									
+
 			 @foreach ($subgrid['tableGrid'] as $field)
 				 @if($field['view'] =='1' && $field['field'] !='id')
 				 <td>					 
